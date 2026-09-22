@@ -47,6 +47,67 @@ class _BmrUiState extends State<BmrUi> {
                   SizedBox(
                     height: 10.0,
                   ),
+                  SizedBox(
+                    height: 12.0,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'เพศ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(150, 50),
+                            backgroundColor: Colors.blue.shade100,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          child: Text(
+                            'ชาย',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                            ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(150, 50),
+                            backgroundColor: Colors.blue.shade100,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          child: Text('หญิง',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -57,7 +118,7 @@ class _BmrUiState extends State<BmrUi> {
                     ),
                   ),
                   SizedBox(
-                    height: 12.0,
+                    height: 10.0,
                   ),
                   TextField(
                     decoration: InputDecoration(
