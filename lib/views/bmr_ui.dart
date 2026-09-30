@@ -2,267 +2,347 @@
 
 import 'package:flutter/material.dart';
 
-class BmrUi extends StatefulWidget {
-  const BmrUi({super.key});
+class BmrUI extends StatefulWidget {
+  const BmrUI({super.key});
 
   @override
-  State<BmrUi> createState() => _BmrUiState();
+  State<BmrUI> createState() => _BmrUIState();
 }
 
-class _BmrUiState extends State<BmrUi> {
+class _BmrUIState extends State<BmrUI> {
+  bool isMale = false; // สร้างตัวแปรเพื่อเก็บค่าเพศ
+
+  // สร้างตัวควบคุม TextField
+  TextEditingController _weightCtrl = TextEditingController();
+  TextEditingController _heightCtrl = TextEditingController();
+  TextEditingController _ageCtrl = TextEditingController();
+
+  // สร้างตัวแปรเก็บค่า BMR
+  double _bmr = 0;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(50.0),
-            child: Center(
-              child: Column(
-                children: [
-                  Text(
-                    'คำนวณหาอัตราการเผาผลาญที่',
+      backgroundColor: Colors.white10,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(55),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  'คำนวณหาอัตราการเผาผลาญที่',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.055,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'ร่างกายต้องการ (BMR)',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.055,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.026,
+                ),
+                Image.asset(
+                  'assets/images/bmr.png',
+                  width: MediaQuery.of(context).size.width * 0.33,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.026,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'เพศ',
                     style: TextStyle(
-                      fontSize: 21.0,
-                      fontWeight: FontWeight.bold,
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
                     ),
                   ),
-                  SizedBox(
-                    height: 3.0,
-                  ),
-                  Text(
-                    'ร่างกายต้องการ',
-                    style: TextStyle(
-                      fontSize: 21.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Image.asset(
-                    'assets/images/bmr.png',
-                    width: MediaQuery.of(context).size.width * 0.40,
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'เพศ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(150, 50),
-                            backgroundColor: Colors.blue.shade100,
-                            foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          child: Text(
-                            'ชาย',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
-                            ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            isMale ? Colors.blue[100] : Colors.white,
+                        fixedSize: Size(
+                          MediaQuery.of(context).size.width * 0.35,
+                          MediaQuery.of(context).size.height * 0.06,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(150, 50),
-                            backgroundColor: Colors.blue.shade100,
-                            foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          child: Text('หญิง',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),),
+                      onPressed: () {
+                        setState(() {
+                          isMale = true; // กำหนดค่าเพศเป็นชาย
+                        });
+                      },
+                      child: Text(
+                        'ชาย',
+                        style: TextStyle(
+                          color: isMale ? Colors.blue[900] : Colors.black,
+                          fontSize: MediaQuery.of(context).size.width * 0.0355,
                         ),
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'น้ำหนัก(kg.)',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.044,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            !isMale ? Colors.blue[100] : Colors.white,
+                        fixedSize: Size(
+                          MediaQuery.of(context).size.width * 0.35,
+                          MediaQuery.of(context).size.height * 0.06,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isMale = false; // กำหนดค่าเพศเป็นหญิง
+                        });
+                      },
+                      child: Text(
+                        'หญิง',
+                        style: TextStyle(
+                          color: !isMale ? Colors.blue[900] : Colors.black,
+                          fontSize: MediaQuery.of(context).size.width * 0.0355,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'กรอกน้ำหนักของคุณ',
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.025,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'น้ำหนัก (kg.)',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
                     ),
                   ),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'ส่วนสูง (cm.)',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                TextField(
+                  controller: _weightCtrl,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'กรอกน้ำหนักของคุณ',
+                    hintStyle: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'กรอกส่วนสูงของคุณ',
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'ส่วนสูง (cm.)',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
                     ),
                   ),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'อายุ (ปี)',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                TextField(
+                  controller: _heightCtrl,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'กรอกส่วนสูงของคุณ',
+                    hintStyle: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'กรอกอายุของคุณ',
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'อายุ (ปี)',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
                     ),
                   ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'คำนวณ BMR',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                TextField(
+                  controller: _ageCtrl,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'กรอกอายุของคุณ',
+                    hintStyle: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.035,
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepOrange,
-                      fixedSize: Size(
-                        MediaQuery.of(context).size.width, //ความกว้างเต็มหน้าจอ
-                        55, //ความสูง
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  SizedBox(
-                    height: 10.0,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    //validate UI
+                    //ตรวจสอบป้อนน้ำหนัก
+                    if (_weightCtrl.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('กรุณาป้อนน้ำหนักของคุณ'),
+                          backgroundColor: Colors.red,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                      return;
+                    }
+                    //ตรวจสอบป้อนส่วนสูง
+                    if (_heightCtrl.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('กรุณาป้อนส่วนสูงของคุณ'),
+                          backgroundColor: Colors.red,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                      return;
+                    }
+                    //ตรวจสอบป้อนอายุ
+                    if (_ageCtrl.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('กรุณาป้อนอายุของคุณ'),
+                          backgroundColor: Colors.red,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                      return;
+                    }
+                    //คำนวณค่า BMR ด้วยตรวจสอบว่าเป็นชายหรือหญอง
+                    //โค้ดที่มีผลต่อการแสดงผลต้องอยู่ภายใต้ setState()
+                    setState(() {
+                      // แปลงน้ำหนักส่วนสูงที่ป้อนเป็น String ให้เป็น double int
+                      double w = double.parse(_weightCtrl.text);
+                      double h = double.parse(_heightCtrl.text);
+                      int a = int.parse(_ageCtrl.text);
+                      
+                      if(isMale==true){
+                        //คิดสูตรผู้ชาย
+                        _bmr = 88.362 + (13.397 * w) + (4.799 * h) - (5.677 * a);
+
+                      }else{
+                        _bmr = 447.593 + (9.247 * w) + (3.098 * h) - (4.330 * a);
+                      }
+                    });
+
+                  },
+                  child: Text(
+                    'คำนวณ BMR',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.045,
+                      color: Colors.white,
+                    ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'ล้างข้อมูล',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey,
-                      fixedSize: Size(
-                        MediaQuery.of(context).size.width, //ความกว้างเต็มหน้าจอ
-                        55, //ความสูง
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepOrange,
+                    fixedSize: Size(
+                      MediaQuery.of(context).size.width,
+                      MediaQuery.of(context).size.height * 0.06,
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.015,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    'ล้างข้อมูล',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.045,
+                      color: Colors.white,
+                    ),
                   ),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 20,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey[400],
+                    fixedSize: Size(
+                      MediaQuery.of(context).size.width,
+                      MediaQuery.of(context).size.height * 0.06,
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.green.shade200,
-                      borderRadius: BorderRadius.circular(0),
-                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.025,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.18,
+                  child: Container(
+                    color: Colors.green[100],
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'BMR',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: MediaQuery.of(context).size.width * 0.045,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
                         ),
                         Text(
-                          '0.00',
+                          _bmr.toStringAsFixed(2),
                           style: TextStyle(
-                            fontSize: 40,
+                            fontSize: MediaQuery.of(context).size.width * 0.1,
                             fontWeight: FontWeight.bold,
-                            color: Colors.red,
+                            color: Colors.deepOrange,
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
                         ),
                         Text(
                           'kcal/day',
                           style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.045,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

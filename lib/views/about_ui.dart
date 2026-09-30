@@ -25,7 +25,7 @@ class AboutUi extends StatelessWidget {
             ),
             Image.asset(
               'assets/images/calculate.png',
-              width: MediaQuery.of(context).size.width * 0.4,
+              width: MediaQuery.of(context).size.width * 0.3,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,

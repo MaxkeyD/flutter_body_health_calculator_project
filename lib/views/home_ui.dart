@@ -18,9 +18,9 @@ class _HomeUiState extends State<HomeUi> {
   // โดยแต่ละค่าข้อมูลจะมี index number
   List subView =[
 
-    BmiUi(),
+    BmiUI(),
     AboutUi(),
-    BmrUi(),
+    BmrUI(),
     
   ];
 
